@@ -18,11 +18,9 @@ from app.models import db, User, Bin, Vehicle, Alert, CollectionRequest
 # Page config
 st.set_page_config(page_title="EcoBin - Smart Waste Monitoring", page_icon="🍃", layout="wide")
 
-# Initialize database if needed
+# Initialize database if needed (seed_database is idempotent)
 with app.app_context():
-    db_path = app.config['SQLALCHEMY_DATABASE_URI'].replace('sqlite:///', '')
-    if not os.path.exists(db_path):
-        seed_database()
+    seed_database()
 
 # Authentication state
 if 'logged_in' not in st.session_state:
