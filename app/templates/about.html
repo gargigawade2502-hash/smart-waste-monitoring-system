@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block header_title %}About Project{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card shadow border-0">
+            <div class="card-header bg-primary text-white py-4 text-center">
+                <i class="fas fa-leaf fa-3x mb-3"></i>
+                <h2>Smart Waste Collection Monitoring System</h2>
+                <p class="mb-0 opacity-75">Software Engineering Practices - Micro Project</p>
+            </div>
+            <div class="card-body p-5">
+                
+                <h4 class="fw-bold text-dark border-bottom pb-2 mb-4">Project Overview</h4>
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item px-0"><strong>Development Model:</strong> Incremental Development Model</li>
+                            <li class="list-group-item px-0"><strong>Course:</strong> Software Engineering Practices (SEP)</li>
+                            <li class="list-group-item px-0"><strong>Type:</strong> Individual Academic Project</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="alert alert-info h-100 mb-0 d-flex flex-column justify-content-center">
+                            <h6 class="fw-bold"><i class="fas fa-globe-americas me-2"></i>SDG Alignment</h6>
+                            <p class="small mb-2"><strong>SDG 9 – Industry, Innovation and Infrastructure:</strong> This project supports this goal by demonstrating a technology-driven, scalable software solution to modernize municipal waste management operations through innovative simulated IoT integrations.</p>
+                            <p class="small mb-0"><strong>SDG 11 – Sustainable Cities and Communities:</strong> By optimizing waste collection routes and preventing overflowing bins, the system directly contributes to creating cleaner, healthier, and more sustainable urban environments.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="fw-bold text-dark border-bottom pb-2 mb-4">Problem Statement</h4>
+                <p>Traditional waste collection relies on fixed schedules and static routes, leading to overflowing bins in busy areas and wasted fuel checking empty bins in quiet areas. This lack of real-time data causes hygiene issues and operational inefficiency.</p>
+
+                <h4 class="fw-bold text-dark border-bottom pb-2 mb-4">Proposed Solution</h4>
+                <p>A web-based Smart Waste Collection Monitoring System that simulates IoT sensor data to track bin fill levels in real-time. The system automatically alerts administrators when bins are full and facilitates dynamic, priority-based assignment of collection vehicles.</p>
+                
+                <h4 class="fw-bold text-dark border-bottom pb-2 mb-4">Technology Stack</h4>
+                <div class="row text-center mb-4">
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded bg-light">
+                            <i class="fab fa-python fa-2x text-primary mb-2"></i>
+                            <h6>Backend</h6>
+                            <small class="text-muted">Python Flask</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded bg-light">
+                            <i class="fas fa-database fa-2x text-secondary mb-2"></i>
+                            <h6>Database</h6>
+                            <small class="text-muted">SQLite (SQLAlchemy)</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded bg-light">
+                            <i class="fab fa-html5 fa-2x text-danger mb-2"></i>
+                            <h6>Frontend</h6>
+                            <small class="text-muted">HTML, CSS, Bootstrap 5</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded bg-light">
+                            <i class="fas fa-chart-pie fa-2x text-warning mb-2"></i>
+                            <h6>Analytics</h6>
+                            <small class="text-muted">Chart.js</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

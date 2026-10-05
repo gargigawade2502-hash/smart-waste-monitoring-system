@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block header_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+    <!-- Total Bins Card -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-primary text-white h-100 shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-2 opacity-75">Total Waste Bins</h6>
+                        <h2 class="mb-0 fw-bold">{{ total_bins }}</h2>
+                    </div>
+                    <div class="fs-1 opacity-50"><i class="fas fa-trash-alt"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Normal Bins Card -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-success text-white h-100 shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-2 opacity-75">Normal / Empty</h6>
+                        <h2 class="mb-0 fw-bold">{{ normal_bins }}</h2>
+                    </div>
+                    <div class="fs-1 opacity-50"><i class="fas fa-check-circle"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Almost Full Card -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-warning text-dark h-100 shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-2 opacity-75">Almost Full</h6>
+                        <h2 class="mb-0 fw-bold">{{ almost_full_bins }}</h2>
+                    </div>
+                    <div class="fs-1 opacity-50"><i class="fas fa-exclamation-triangle"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overflowing Card -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-danger text-white h-100 shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-2 opacity-75">Full / Overflowing</h6>
+                        <h2 class="mb-0 fw-bold">{{ full_overflowing_bins }}</h2>
+                    </div>
+                    <div class="fs-1 opacity-50"><i class="fas fa-exclamation-circle"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-info text-white h-100 shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-2 opacity-75">Pending Collections</h6>
+                        <h2 class="mb-0 fw-bold">{{ pending_collections }}</h2>
+                    </div>
+                    <div class="fs-1 opacity-50"><i class="fas fa-clock"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-secondary text-white h-100 shadow">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-2 opacity-75">Active Collections</h6>
+                        <h2 class="mb-0 fw-bold">{{ active_collections }}</h2>
+                    </div>
+                    <div class="fs-1 opacity-50"><i class="fas fa-truck-loading"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card shadow h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold"><i class="fas fa-chart-bar me-2 text-primary"></i>System Overview Overview</h5>
+            </div>
+            <div class="card-body d-flex align-items-center justify-content-center">
+                <canvas id="dashboardChart" style="max-height: 300px;"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card shadow h-100">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold"><i class="fas fa-bell me-2 text-danger"></i>Recent Alerts</h5>
+                <a href="{{ url_for('main.alerts') }}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    {% for alert in alerts %}
+                    <li class="list-group-item p-3">
+                        <div class="d-flex w-100 justify-content-between mb-1">
+                            <h6 class="mb-1 fw-bold text-{{ 'danger' if alert.priority == 'High' else 'warning' }}">
+                                <i class="fas fa-exclamation-circle me-1"></i>{{ alert.alert_type }}
+                            </h6>
+                            <small class="text-muted">{{ alert.created_at.strftime('%H:%M, %d %b') }}</small>
+                        </div>
+                        <p class="mb-1 small">{{ alert.message }}</p>
+                    </li>
+                    {% else %}
+                    <li class="list-group-item p-4 text-center text-muted">
+                        <i class="fas fa-check-circle fa-2x mb-2 text-success"></i>
+                        <p class="mb-0">No active alerts. Everything is normal.</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var ctx = document.getElementById('dashboardChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Empty', 'Normal', 'Almost Full', 'Full', 'Overflowing'],
+            datasets: [{
+                label: 'Number of Bins',
+                data: [{{ normal_bins - (total_bins - normal_bins - almost_full_bins - full_overflowing_bins) }}, {{ total_bins - normal_bins - almost_full_bins - full_overflowing_bins }}, {{ almost_full_bins }}, {{ full_overflowing_bins - (full_overflowing_bins) }}, {{ full_overflowing_bins }}],
+                backgroundColor: [
+                    'rgba(24, 188, 156, 0.5)',
+                    'rgba(52, 152, 219, 0.5)',
+                    'rgba(243, 156, 18, 0.5)',
+                    'rgba(231, 76, 60, 0.5)',
+                    'rgba(192, 57, 43, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(24, 188, 156, 1)',
+                    'rgba(52, 152, 219, 1)',
+                    'rgba(243, 156, 18, 1)',
+                    'rgba(231, 76, 60, 1)',
+                    'rgba(192, 57, 43, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

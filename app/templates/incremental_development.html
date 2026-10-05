@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block header_title %}Incremental Development Model{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow mb-5 border-0">
+            <div class="card-body p-5">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold text-primary mb-3">Project Evolution</h2>
+                    <p class="lead text-muted mb-2">This page visually demonstrates how the Smart Waste Collection Monitoring System was built using the <strong>Incremental Development Model</strong>.</p>
+                    <div class="alert alert-primary bg-primary bg-opacity-10 border-primary border-opacity-25 d-inline-block mx-auto text-start shadow-sm mt-2">
+                        <strong><i class="fas fa-info-circle me-2"></i>Software Engineering Concept:</strong><br>
+                        "Instead of developing the complete system at once, the system was developed and delivered in functional increments. Each increment added usable functionality to the previous version, allowing for easier testing, debugging, and continuous improvement."
+                    </div>
+                </div>
+
+                <ul class="timeline">
+                    <!-- Increment 1 -->
+                    <li>
+                        <div class="timeline-badge bg-secondary"><i class="fas fa-cubes"></i></div>
+                        <div class="timeline-panel border-start border-4 border-secondary">
+                            <h4 class="fw-bold text-secondary">Increment 1: Basic Management</h4>
+                            <p class="small text-muted"><i class="far fa-clock me-1"></i> Foundation Phase</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="fw-bold">Objective:</h6>
+                                    <p class="small">Establish the core infrastructure and basic CRUD operations for waste bins.</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="fw-bold">Features Delivered:</h6>
+                                    <ul class="small">
+                                        <li>Admin & Operator Login</li>
+                                        <li>Dashboard scaffolding</li>
+                                        <li>Add/Edit/Delete Bins</li>
+                                        <li>View bin list</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="alert alert-light border mt-2 small mb-0">
+                                <strong>Testing Outcome:</strong> Database connected successfully. User authentication functioning. Bin records stored persistently.
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Increment 2 -->
+                    <li>
+                        <div class="timeline-badge bg-primary"><i class="fas fa-satellite-dish"></i></div>
+                        <div class="timeline-panel border-start border-4 border-primary">
+                            <h4 class="fw-bold text-primary">Increment 2: Smart Monitoring</h4>
+                            <p class="small text-muted"><i class="far fa-clock me-1"></i> Core Logic Phase</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="fw-bold">Objective:</h6>
+                                    <p class="small">Introduce "Smart" capabilities by simulating IoT sensor data and automatic status calculations.</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="fw-bold">Features Delivered:</h6>
+                                    <ul class="small">
+                                        <li>Sensor simulation button</li>
+                                        <li>Dynamic fill level update</li>
+                                        <li>Automatic threshold detection (Normal, Full, etc.)</li>
+                                        <li>Alert generation for overflowing bins</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="alert alert-light border mt-2 small mb-0">
+                                <strong>Testing Outcome:</strong> Status thresholds correctly calculated. Alerts generated when fill level > 80%.
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Increment 3 -->
+                    <li>
+                        <div class="timeline-badge bg-info"><i class="fas fa-truck"></i></div>
+                        <div class="timeline-panel border-start border-4 border-info">
+                            <h4 class="fw-bold text-info">Increment 3: Collection Management</h4>
+                            <p class="small text-muted"><i class="far fa-clock me-1"></i> Operational Phase</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="fw-bold">Objective:</h6>
+                                    <p class="small">Enable actionable responses to the data generated in Increment 2.</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="fw-bold">Features Delivered:</h6>
+                                    <ul class="small">
+                                        <li>Create collection requests</li>
+                                        <li>Assign vehicles and staff</li>
+                                        <li>Status tracking (Pending, In Progress, Completed)</li>
+                                        <li>Auto-reset bin status on completion</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Increment 4 -->
+                    <li>
+                        <div class="timeline-badge bg-warning text-dark"><i class="fas fa-chart-pie"></i></div>
+                        <div class="timeline-panel border-start border-4 border-warning">
+                            <h4 class="fw-bold text-warning">Increment 4: Analytics & Reporting</h4>
+                            <p class="small text-muted"><i class="far fa-clock me-1"></i> Data Insights Phase</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="fw-bold">Objective:</h6>
+                                    <p class="small">Provide a high-level view of system performance and data trends using Chart.js.</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="fw-bold">Features Delivered:</h6>
+                                    <ul class="small">
+                                        <li>Dynamic Dashboard charts</li>
+                                        <li>System Analytics page</li>
+                                        <li>Fill status distribution pie chart</li>
+                                        <li>Aggregated metrics calculation</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Increment 5 -->
+                    <li>
+                        <div class="timeline-badge bg-success"><i class="fas fa-magic"></i></div>
+                        <div class="timeline-panel border-start border-4 border-success">
+                            <h4 class="fw-bold text-success">Increment 5: Optimization & Automation</h4>
+                            <p class="small text-muted"><i class="far fa-clock me-1"></i> Polish & Smart Feature Phase</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="fw-bold">Objective:</h6>
+                                    <p class="small">Introduce an innovative feature to align with SDG 9 and conclude the project.</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="fw-bold">Features Delivered:</h6>
+                                    <ul class="small">
+                                        <li><strong>Auto-Collection Trigger:</strong> When a bin hits critical levels during sensor simulation, the system now automatically generates a pending collection request with High priority.</li>
+                                        <li>UI/UX Polishing</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="alert alert-success mt-2 small mb-0">
+                                <strong>Final Outcome:</strong> A complete, working prototype demonstrating the Incremental Development Model applied to a smart city problem.
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

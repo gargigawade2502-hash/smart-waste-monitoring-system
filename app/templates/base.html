@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Waste Monitoring</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        {% if current_user.is_authenticated %}
+        <div class="bg-dark text-white" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center py-4 fs-4 fw-bold text-uppercase border-bottom border-secondary">
+                <i class="fas fa-leaf text-success me-2"></i>EcoBin
+            </div>
+            <div class="list-group list-group-flush my-3">
+                <a href="{{ url_for('main.dashboard') }}" class="list-group-item list-group-item-action bg-transparent text-white fw-bold"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                <a href="{{ url_for('main.bins') }}" class="list-group-item list-group-item-action bg-transparent text-white fw-bold"><i class="fas fa-trash-alt me-2"></i>Waste Bins</a>
+                <a href="{{ url_for('main.alerts') }}" class="list-group-item list-group-item-action bg-transparent text-white fw-bold"><i class="fas fa-bell me-2"></i>Alerts</a>
+                <a href="{{ url_for('main.collections') }}" class="list-group-item list-group-item-action bg-transparent text-white fw-bold"><i class="fas fa-truck-loading me-2"></i>Collections</a>
+                <a href="{{ url_for('main.vehicles') }}" class="list-group-item list-group-item-action bg-transparent text-white fw-bold"><i class="fas fa-truck me-2"></i>Vehicles</a>
+                <a href="{{ url_for('main.analytics') }}" class="list-group-item list-group-item-action bg-transparent text-white fw-bold"><i class="fas fa-chart-line me-2"></i>Analytics</a>
+                <a href="{{ url_for('main.incremental_development') }}" class="list-group-item list-group-item-action bg-transparent text-warning fw-bold"><i class="fas fa-code-branch me-2"></i>Incremental Dev</a>
+                <a href="{{ url_for('main.reports') }}" class="list-group-item list-group-item-action bg-transparent text-white fw-bold"><i class="fas fa-file-alt me-2"></i>Reports</a>
+                <a href="{{ url_for('main.about') }}" class="list-group-item list-group-item-action bg-transparent text-white fw-bold"><i class="fas fa-info-circle me-2"></i>About Project</a>
+                <a href="{{ url_for('main.logout') }}" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="w-100 bg-light">
+            {% if current_user.is_authenticated %}
+            <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 px-4 shadow-sm">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-align-left text-muted fs-4 me-3" id="menu-toggle" style="cursor: pointer;"></i>
+                    <h2 class="fs-4 m-0">{% block header_title %}Smart Waste Collection Monitoring{% endblock %}</h2>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle me-2"></i>{{ current_user.name }} ({{ current_user.role|capitalize }})
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{{ url_for('main.logout') }}">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            {% endif %}
+
+            <div class="container-fluid px-4 py-4">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+        if(toggleButton) {
+            toggleButton.onclick = function () {
+                el.classList.toggle("toggled");
+            };
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block header_title %}Add New Waste Bin{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold"><i class="fas fa-plus-circle me-2 text-primary"></i>Bin Details Form</h5>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('main.add_bin') }}">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Bin ID</label>
+                            <input type="text" name="bin_id" class="form-control" placeholder="e.g., B005" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Bin Type</label>
+                            <select name="bin_type" class="form-select" required>
+                                <option value="">Select Type</option>
+                                <option value="General">General Waste</option>
+                                <option value="Recycle">Recyclable</option>
+                                <option value="Organic">Organic</option>
+                                <option value="Hazardous">Hazardous</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Location</label>
+                            <input type="text" name="location" class="form-control" placeholder="e.g., Central Park Gate 2" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Area / Zone</label>
+                            <select name="area" class="form-select" required>
+                                <option value="">Select Area</option>
+                                <option value="North Zone">North Zone</option>
+                                <option value="South Zone">South Zone</option>
+                                <option value="East Zone">East Zone</option>
+                                <option value="West Zone">West Zone</option>
+                                <option value="Downtown">Downtown</option>
+                                <option value="Campus">Campus</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Capacity (Liters)</label>
+                        <input type="number" name="capacity" class="form-control" value="100" required>
+                    </div>
+                    
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{{ url_for('main.bins') }}" class="btn btn-light border">Cancel</a>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i>Save Bin</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

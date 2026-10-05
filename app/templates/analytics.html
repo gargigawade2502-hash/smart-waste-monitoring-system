@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block header_title %}System Analytics{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card shadow bg-primary text-white h-100">
+            <div class="card-body text-center p-4">
+                <i class="fas fa-percentage fa-3x mb-3 opacity-50"></i>
+                <h6 class="text-uppercase mb-2">Average Fill Level</h6>
+                <h2 class="display-4 fw-bold mb-0">{{ avg_fill }}%</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card shadow bg-success text-white h-100">
+            <div class="card-body text-center p-4">
+                <i class="fas fa-check-double fa-3x mb-3 opacity-50"></i>
+                <h6 class="text-uppercase mb-2">Total Collections Completed</h6>
+                <h2 class="display-4 fw-bold mb-0">{{ completed_colls }}</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card shadow bg-danger text-white h-100">
+            <div class="card-body text-center p-4">
+                <i class="fas fa-exclamation-triangle fa-3x mb-3 opacity-50"></i>
+                <h6 class="text-uppercase mb-2">Total Overflow Incidents</h6>
+                <h2 class="display-4 fw-bold mb-0">{{ overflow_incidents }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card shadow h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold">Current Fill Status Distribution</h5>
+            </div>
+            <div class="card-body d-flex justify-content-center">
+                <canvas id="distributionChart" style="max-height: 350px;"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold">Collection Activity Trend (Simulated)</h5>
+            </div>
+            <div class="card-body d-flex justify-content-center">
+                <canvas id="trendChart" style="max-height: 350px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Distribution Chart (Pie)
+    var ctxPie = document.getElementById('distributionChart').getContext('2d');
+    var distChart = new Chart(ctxPie, {
+        type: 'doughnut',
+        data: {
+            labels: ['Empty', 'Normal', 'Almost Full', 'Full', 'Overflowing'],
+            datasets: [{
+                data: [{{ fill_data['Empty'] }}, {{ fill_data['Normal'] }}, {{ fill_data['Almost Full'] }}, {{ fill_data['Full'] }}, {{ fill_data['Overflowing'] }}],
+                backgroundColor: [
+                    '#6c757d', // secondary
+                    '#198754', // success
+                    '#ffc107', // warning
+                    '#dc3545', // danger
+                    '#212529'  // dark
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'right' }
+            }
+        }
+    });
+    
+    // Trend Chart (Line) - Simulated data for demonstration
+    var ctxLine = document.getElementById('trendChart').getContext('2d');
+    var trendChart = new Chart(ctxLine, {
+        type: 'line',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Collections Completed',
+                data: [5, 8, 6, 9, 12, 4, 2],
+                borderColor: '#0d6efd',
+                backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}
