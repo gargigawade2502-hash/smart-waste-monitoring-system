@@ -1,0 +1,34 @@
+# Version control
+.git
+.github
+
+# Virtual environments
+venv
+.venv
+
+# Python bytecode & cache
+__pycache__
+**/__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Environment & secrets
+.env
+.streamlit/secrets.toml
+
+# Local SQLite databases
+*.db
+*.sqlite
+*.sqlite3
+database/*.db
+database/*.sqlite
+database/*.sqlite3
+
+# Archives and test artifacts
+*.zip
+.pytest_cache
+.mypy_cache
+.coverage
+htmlcov
+
